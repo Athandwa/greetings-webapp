@@ -7,15 +7,34 @@ app.get('/', function (req, res) {
  res.send('Hello World!');
 });
 
-// create a route
+// create a route for names greeted
 app.get('/greeted', function (req, res) {
  res.send(greetedNames);
 });
 
-//creat new route
+//creat a route to greet people
 app.get('/greetings/:name', function (req, res) {
  res.send('Hello, ' + req.params.name);
   greetedNames.push(req.params.name)
+});
+
+//creat route for counter
+app.get('/counter/:name', function(req, res) {
+    var name = req.params.name;
+
+    var greetCounter = [];
+
+    //loop through all the names greeted
+    greetedNames.forEach(function(name) {
+
+        if (greetCounter[name] === undefined) {
+            greetCounter[name] = 0;
+        }
+        // increment the counter for each name greeted
+        greetCounter[name] = greetCounter[name] + 1;
+    });
+    console.log((greetCounter));
+    res.send(name + " " + "has been greeted " + greetCounter[name] + " " + 'time(s)')
 });
 
 //start the server
